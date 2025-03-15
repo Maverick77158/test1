@@ -35,9 +35,11 @@ body {
 
 /* Layout */
 .container {
-    display: flex;
-    margin: 20px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;  /* 1 part filter, 3 parts products */
+    column-gap: 20px;  /* Adds spacing */
 }
+
 
 /* Sidebar */
 .sidebar {
