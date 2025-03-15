@@ -25,6 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.getElementById("filter-btn").addEventListener("click", function() {
+    let minPrice = parseInt(document.getElementById("min-price").value) || 0;
+    let maxPrice = parseInt(document.getElementById("max-price").value) || Infinity;
+
+    document.querySelectorAll(".product").forEach(product => {
+        let price = parseInt(product.getAttribute("data-price"));
+
+        if (price >= minPrice && price <= maxPrice) {
+            product.style.display = "block"; // Show product
+        } else {
+            product.style.display = "none"; // Hide product
+        }
+    });
+});
+
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
