@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let product = button.parentElement;
             let productId = product.getAttribute("data-id");
             let productName = product.getAttribute("data-name");
-            let productPrice = product.getAttribute("data-price");
+            let productPrice = parseInt(product.getAttribute("data-price"));
 
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             let existingProduct = cart.find(item => item.id === productId);
@@ -23,21 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(`${productName} added to cart!`);
         });
     });
-});
 
-document.getElementById("filter-btn").addEventListener("click", function() {
-    let minPrice = parseInt(document.getElementById("min-price").value) || 0;
-    let maxPrice = parseInt(document.getElementById("max-price").value) || Infinity;
-
-    document.querySelectorAll(".product").forEach(product => {
-        let price = parseInt(product.getAttribute("data-price"));
-
-        if (price >= minPrice && price <= maxPrice) {
-            product.style.display = "block"; // Show product
-        } else {
-            product.style.display = "none"; // Hide product
-        }
-    });
+    // Attach filter event listener
+    document.getElementById("filter-btn").addEventListener("click", applyFilter);
 });
 
 function updateCartCount() {
@@ -46,20 +34,20 @@ function updateCartCount() {
     document.getElementById("cart-count").innerText = totalCount;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("filter-btn").addEventListener("click", function () {
-        let minPrice = parseInt(document.getElementById("min-price").value) || 0;
-        let maxPrice = parseInt(document.getElementById("max-price").value) || Infinity;
+function applyFilter() {
+    let minPrice = document.getElementById("min-price").value;
+    let maxPrice = document.getElementById("max-price").value;
 
-        document.querySelectorAll(".product").forEach(product => {
-            let price = parseInt(product.getAttribute("data-price"));
+    minPrice = minPrice ? parseInt(minPrice) : 0;
+    maxPrice = maxPrice ? parseInt(maxPrice) : Infinity;
 
-            if (price >= minPrice && price <= maxPrice) {
-                product.style.display = "block"; // Show product
-            } else {
-                product.style.display = "none"; // Hide product
-            }
-        });
+    document.querySelectorAll(".product").forEach(product => {
+        let price = parseInt(product.getAttribute("data-price"));
+
+        if (!isNaN(price) && price >= minPrice && price <= maxPrice) {
+            product.style.display = "block"; // Show matching products
+        } else {
+            product.style.display = "none"; // Hide others
+        }
     });
-});
-
+}
