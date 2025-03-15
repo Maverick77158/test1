@@ -36,15 +36,15 @@ body {
 /* Layout */
 .container {
     display: flex;
-    gap: 20px;  /* Adds space between filter and products */
+    gap: 40px;  /* Adds space between filter and products */
 }
 
 .filter-column {
-    flex: 1;  /* Keeps the filter section width fixed */
+    flex: 3;  /* Keeps the filter section width fixed */
 }
 
 .products-container {
-    flex: 3;  /* Takes more space for products */
+    flex: 2;  /* Takes more space for products */
 }
 
 
